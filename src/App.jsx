@@ -1,28 +1,22 @@
-import './App.css'
-import axios from 'axios'
-import { useEffect , useState } from 'react'
-import { BASE_URL } from './globals'
-import HotelsList from './components/HotelsList'
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HotelsPage from "./pages/HotelsPage.jsx";
+import AttractionsPage from "./pages/AttractionsPage.jsx";
+import FlightsPage from "./pages/FlightsPage.jsx";
+import Navbar from "./components/Navbar";
+import "./style/App.css";
 
 const App = () => {
-    const [hotels, setHotels] = useState([])
-  useEffect(() => {
-  const getHotels = async () => {
-  const response = await axios.get(`${BASE_URL}/hotel?city_name=manama&arrival_date=2025%2F12%2F12&departure_date=2025%2F12%2F20&sort_by=price`)
-    console.log(response)
-    setHotels(response.data)
-
-  }
-
-  getHotels()
-}, [])
-
   return (
-    <div>
-      <HotelsList hotels={hotels} />
-    </div>
-  )
-}
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/hotels" element={<HotelsPage />} />
+        <Route path="/attractions" element={<AttractionsPage />} />
+        <Route path="/flights" element={<FlightsPage />} />
+        <Route path="*" element={<HotelsPage />} /> {/* Default page */}
+      </Routes>
+    </Router>
+  );
+};
 
-export default App
+export default App;

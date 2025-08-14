@@ -1,0 +1,524 @@
+/* Add this to your existing CSS */
+
+/* Not Found Messages - Centered and Styled */
+.not-found-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  width: 100%;
+}
+
+.not-found-message {
+  text-align: center;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  max-width: 500px;
+  width: 90%;
+}
+
+.not-found-message h3 {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.not-found-message p {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.not-found-icon {
+  font-size: 3rem;
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+}
+
+/* Enhanced Hotel Cards */
+.hotel-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.hotel-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+}
+
+.hotel-card-content {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.hotel-card h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+.hotel-card p {
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.hotel-card .price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--accent-color);
+  margin-top: 0.5rem;
+}
+
+.hotel-card .rating {
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.hotel-card .booking-link {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: var(--transition);
+  text-align: center;
+}
+
+.hotel-card .booking-link:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+/* Enhanced Attraction Cards */
+.attraction-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.attraction-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+}
+
+.attraction-card-content {
+  padding: 1.5rem;
+  flex: 1;
+}
+
+.attraction-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+.attraction-card p {
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.attraction-card .price {
+  font-weight: bold;
+  color: var(--accent-color);
+  margin-top: 0.5rem;
+}
+
+/* Enhanced Flight Cards */
+.flight-card {
+  position: relative;
+}
+
+.flight-badges {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.badge {
+  padding: 0.3rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 20px;
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.badge.cheapest {
+  background-color: var(--accent-color);
+}
+
+.badge.fastest {
+  background-color: #ff6e40;
+}
+
+.flight-info {
+  margin-top: 1rem;
+}
+
+.flight-info p {
+  margin: 0.5rem 0;
+}
+
+.flight-legs {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.flight-leg {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed #eee;
+}
+
+.flight-leg:last-child {
+  border-bottom: none;
+}
+
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, #1e3d59 0%, #2a5d8f 100%);
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.navbar-logo {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.navbar-logo:hover {
+  color: #ff6e40;
+  transform: scale(1.05);
+}
+
+.navbar-logo::before {
+  content: "✈️";
+  margin-right: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links li {
+  position: relative;
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-link:hover {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.nav-link.active {
+  color: white;
+  font-weight: 600;
+  background-color: rgba(255, 110, 64, 0.2);
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 3px;
+  background-color: #ff6e40;
+  border-radius: 3px;
+}
+
+/* Navbar Icons */
+.nav-link::before {
+  font-size: 1.2rem;
+}
+
+.nav-link[href="/hotels"]::before {
+  content: "🏨";
+}
+
+.nav-link[href="/attractions"]::before {
+  content: "🏛️";
+}
+
+.nav-link[href="/flights"]::before {
+  content: "✈️";
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: 1rem;
+  }
+  
+  .navbar-logo {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+  }
+  
+  .navbar-links {
+    width: 100%;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .nav-link {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .nav-link {
+    width: 100%;
+    justify-content: center;
+    padding: 0.8rem;
+  }
+  
+  .nav-link.active::after {
+    bottom: -5px;
+  }
+}
+
+/* Animation Effects */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.navbar-links li {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.navbar-links li:nth-child(1) { animation-delay: 0.1s; }
+.navbar-links li:nth-child(2) { animation-delay: 0.2s; }
+.navbar-links li:nth-child(3) { animation-delay: 0.3s; }
+
+
+/* Page Container */
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Page Titles */
+.page-container h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #1e3d59;
+  font-size: 2.2rem;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.page-container h2::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 4px;
+  background: #ff6e40;
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+.page-container h3 {
+  margin: 2rem 0 1rem;
+  color: #1e3d59;
+  font-size: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #eee;
+}
+
+/* Search Forms */
+.search-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 3rem;
+}
+
+.search-form input,
+.search-form select {
+  padding: 0.8rem 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.search-form input:focus,
+.search-form select:focus {
+  outline: none;
+  border-color: #1e3d59;
+  box-shadow: 0 0 0 2px rgba(30, 61, 89, 0.2);
+}
+
+.search-form input::placeholder {
+  color: #999;
+}
+
+.search-form button {
+  grid-column: 1 / -1;
+  padding: 1rem;
+  background: linear-gradient(135deg, #1e3d59 0%, #2a5d8f 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.search-form button:hover {
+  background: linear-gradient(135deg, #ff6e40 0%, #ff8c66 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Loading Indicators */
+.loading-indicator {
+  text-align: center;
+  padding: 2rem;
+  margin: 2rem 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.loading-text {
+  font-size: 1.2rem;
+  color: #1e3d59;
+  margin-bottom: 1rem;
+}
+
+.loading-bar-container {
+  width: 100%;
+  height: 8px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.loading-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #1e3d59, #ff6e40);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.loading-percentage {
+  font-weight: bold;
+  color: #ff6e40;
+}
+
+/* Flight Page Specific */
+.flight-section {
+  margin-bottom: 3rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .search-form {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+  
+  .page-container h2 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-container {
+    padding: 1rem;
+  }
+  
+  .search-form {
+    padding: 1rem;
+  }
+  
+  .search-form button {
+    padding: 0.8rem;
+  }
+}
+
+/* Animation for Loading */
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+.loading-pulse {
+  animation: pulse 1.5s infinite ease-in-out;
+}
