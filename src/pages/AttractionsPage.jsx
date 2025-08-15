@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import axios from "axios";
 import { BASE_URL } from "../globals";
 import AttractionsList from "../components/AttractionsList.jsx";
+import { GetCurrentUser } from "../services/Auth";
 
 const AttractionsPage = () => {
   const [attractions, setAttractions] = useState([]);
@@ -11,6 +12,9 @@ const AttractionsPage = () => {
   const [cityName, setCityName] = useState("");
   const [arrivalDate, setArrivalDate] = useState("");
   const [departureDate, setDepartureDate] = useState("");
+
+  // Track logged-in user
+  const [currentUser] = useState(GetCurrentUser());
 
   const fetchAttractions = useCallback(async () => {
     if (!cityName || !arrivalDate || !departureDate) return;
@@ -71,16 +75,17 @@ const AttractionsPage = () => {
         <button type="submit">Search</button>
       </form>
 
-{loading ? (
-  <div className="loading-indicator">
-    <p className="loading-text">Searching for options...</p>
-    <div className="loading-bar-container">
-      <div className="loading-bar" style={{ width: `${counter}%` }}></div>
-    </div>
-    <p className="loading-percentage">{Math.round(counter)}% complete</p>
-  </div>
-) : <AttractionsList attractions={attractions} />}
-
+      {loading ? (
+        <div className="loading-indicator">
+          <p className="loading-text">Searching for options...</p>
+          <div className="loading-bar-container">
+            <div className="loading-bar" style={{ width: `${counter}%` }}></div>
+          </div>
+          <p className="loading-percentage">{Math.round(counter)}% complete</p>
+        </div>
+      ) : (
+        <AttractionsList attractions={attractions} currentUser={currentUser} />
+      )}
     </div>
   );
 };

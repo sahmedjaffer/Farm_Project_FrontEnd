@@ -1,34 +1,36 @@
-import { useState, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import { BASE_URL } from "../globals";
 import HotelsList from "../components/HotelsList.jsx";
+import { BASE_URL } from "../globals";
+import { GetCurrentUser, AuthHeader } from "../services/Auth";
+import "../style/App.css";
 
 const HotelsPage = () => {
   const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [counter, setCounter] = useState(0);
 
   const [cityName, setCityName] = useState("");
   const [arrivalDate, setArrivalDate] = useState("");
   const [departureDate, setDepartureDate] = useState("");
   const [sortBy, setSortBy] = useState("");
 
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    const user = GetCurrentUser();
+    setCurrentUser(user);
+  }, []);
+
   const fetchHotels = useCallback(async () => {
     if (!cityName || !arrivalDate || !departureDate || !sortBy) return;
 
     try {
       setLoading(true);
-      setCounter(0);
-      const interval = setInterval(() => setCounter(prev => (prev < 200 ? prev + 0.5 : 200)), 200);
-
       const response = await axios.get(`${BASE_URL}/hotel`, {
         params: { city_name: cityName, arrival_date: arrivalDate, departure_date: departureDate, sort_by: sortBy },
-        timeout: 60000
+        timeout: 60000,
       });
-
       setHotels(response.data);
-      clearInterval(interval);
-      setCounter(100);
     } catch (err) {
       console.error(err);
     } finally {
@@ -57,16 +59,14 @@ const HotelsPage = () => {
         <button type="submit">Search</button>
       </form>
 
-      {loading ? (
-  <div className="loading-indicator">
-    <p className="loading-text">Searching for options...</p>
-    <div className="loading-bar-container">
-      <div className="loading-bar" style={{ width: `${counter}%` }}></div>
-    </div>
-    <p className="loading-percentage">{Math.round(counter)}% complete</p>
-  </div>
-) : <HotelsList hotels={hotels} />}
+      {loading ? <p>Loading...</p> : null}
 
+     <HotelsList 
+  hotels={hotels} 
+  currentUser={currentUser} 
+  arrivalDate={arrivalDate} 
+  departureDate={departureDate} 
+/>
     </div>
   );
 };
