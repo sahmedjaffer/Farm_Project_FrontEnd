@@ -1,4 +1,5 @@
 import "../style/App.css";
+import { NavLink } from "react-router-dom";  // Added this import
 
 const Footer = () => {
   return (
@@ -14,10 +15,10 @@ const Footer = () => {
         </div>
         <div className="footer-links">
           <h3>Quick Links</h3>
-          <a href="#">Home</a>
-          <a href="#">Flights</a>
-          <a href="#">Hotels</a>
-          <a href="#">Attractions</a>
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/flights">Flights</NavLink>
+          <NavLink to="/hotels">Hotels</NavLink>
+          <NavLink to="/attractions">Attractions</NavLink>
         </div>
         <div className="footer-social">
           <h3>Follow Us</h3>

@@ -14,7 +14,9 @@ const Home = () => {
         </div>
 
         <div className="hero-content">
-          <h1>Find Your Next Adventure ✈️ / Encuentra tu próxima aventura 🌍</h1>
+          <h1>
+            Find Your Next Adventure <span className="animated-plane">✈️</span> Encuentra tu próxima aventura <span className="rotating-globe">🌍</span>
+          </h1>
           <p>
             Explore viajes con corazón y create recuerdos para siempre.
           </p>
