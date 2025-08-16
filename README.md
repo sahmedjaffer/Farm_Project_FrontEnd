@@ -70,8 +70,8 @@ The application has 9 main pages:
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/your-username/trip-planner-frontend.git
-cd trip-planner-frontend
+git https://github.com/sahmedjaffer/Farm_Project_FrontEnd.git
+cd Farm_Project_FrontEnd
 npm install
 ```
 
