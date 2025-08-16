@@ -7,6 +7,13 @@ It allows users to plan their trips by browsing **Hotels, Flights, and Attractio
 
 ---
 
+## 🔗 Backend Repository
+
+The backend of this project is available here:  
+[Farm Project Backend](https://github.com/sahmedjaffer/Farm_Project_BackEnd.git)
+
+---
+
 ## 📑 Pages & Routes
 
 The application has 9 main pages:
