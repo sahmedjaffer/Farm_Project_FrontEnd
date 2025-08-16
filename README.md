@@ -1,12 +1,104 @@
-# React + Vite
+# 🌍 Trip Planner (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the **frontend** of the Trip Planner project, built with **React.js**.  
+It allows users to plan their trips by browsing **Hotels, Flights, and Attractions**, as well as managing their personal profiles.
 
-Currently, two official plugins are available:
+🚀 Live Demo: [https://viajero-bh.surge.sh](https://viajero-bh.surge.sh)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 📑 Pages & Routes
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The application has 9 main pages:
+
+| Route | Component | Description |
+|-------|-----------|-------------|
+| `/` | `HomePage` | Landing page of the app |
+| `/signin` | `SignInPage` | User login page |
+| `/register` | `RegisterPage` | User registration page |
+| `/profile/*` | `ProfilePage` | Main profile dashboard (protected) |
+| `/profile/update-profile` | `UserUpdate` | Page to update user information |
+| `/profile/my-history` | `MyHistoryPage` | Shows user’s trip history |
+| `/hotels` | `HotelsPage` | Explore and search hotels |
+| `/attractions` | `AttractionsPage` | Explore attractions in destinations |
+| `/flights` | `FlightsPage` | Browse and book flights |
+| `*` | `HomePage` | Catch-all route (redirects to home) |
+
+---
+
+## 🖼️ Screenshots
+
+### 🏠 Home Page
+![Home Page](screenshots/home.png)
+
+### 🔑 Sign In
+![Sign In](screenshots/signin.png)
+
+### 📝 Register
+![Register](screenshots/register.png)
+
+### 👤 Profile
+![Profile](screenshots/profile.png)
+
+### ⚙️ Update Profile
+![Update Profile](screenshots/update-profile.png)
+
+### 📜 My History
+![My History](screenshots/my-history.png)
+
+### 🏨 Hotels
+![Hotels](screenshots/hotels.png)
+
+### ✈️ Flights
+![Flights](screenshots/flights.png)
+
+### 🎡 Attractions
+![Attractions](screenshots/attractions.png)
+
+---
+
+## 🛠️ Tech Stack
+
+- **React.js** (with React Router for navigation)  
+- **CSS** for styling  
+- **Surge.sh** for deployment  
+
+---
+
+## 📦 Installation & Setup
+
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/your-username/trip-planner-frontend.git
+cd trip-planner-frontend
+npm install
+```
+
+Run locally:
+
+```bash
+npm start
+```
+
+The app will be available at:  
+👉 [http://localhost:5147](http://localhost:5147)
+
+---
+
+## 🌐 Deployment
+
+This project is deployed on **Surge.sh**.  
+To deploy a new version:
+
+```bash
+npm run build
+surge ./build viajero-bh.surge.sh
+```
+
+---
+
+## 👤 Author
+
+Developed by **[Sayed Ahmed Kadhem]** ✨  
+Feel free to connect and contribute!
