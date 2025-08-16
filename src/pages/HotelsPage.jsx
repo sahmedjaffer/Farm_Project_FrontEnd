@@ -8,6 +8,7 @@ import "../style/App.css";
 const HotelsPage = () => {
   const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [counter, setCounter] = useState(0);
 
   const [cityName, setCityName] = useState("");
   const [arrivalDate, setArrivalDate] = useState("");
@@ -26,11 +27,17 @@ const HotelsPage = () => {
 
     try {
       setLoading(true);
+      setCounter(0);
+      const interval = setInterval(() => setCounter(prev => (prev < 100 ? prev + 0.5 : 100)), 50);
+
       const response = await axios.get(`${BASE_URL}/hotel`, {
         params: { city_name: cityName, arrival_date: arrivalDate, departure_date: departureDate, sort_by: sortBy },
         timeout: 60000,
       });
       setHotels(response.data);
+      
+      clearInterval(interval);
+      setCounter(100);
     } catch (err) {
       console.error(err);
     } finally {
@@ -80,23 +87,32 @@ const HotelsPage = () => {
       </form>
 
       {loading ? (
-        <div className="hotels-loading">
-          <p className="hotels-loading-text">Finding hotels...</p>
-        </div>
-      ) : hotels.length === 0 ? (
-        <div className="hotels-empty">
-          <p>No hotels found for the selected criteria</p>
-        </div>
-      ) : (
-        <div className="hotels-results">
-          <HotelsList 
-            hotels={hotels} 
-            currentUser={currentUser} 
-            arrivalDate={arrivalDate} 
-            departureDate={departureDate} 
-          />
-        </div>
-      )}
+  <div className="loading-container">
+    <p className="loading-text">Searching hotels...</p>
+    <div className="loading-bar-container">
+      <div 
+        className="loading-bar" 
+        style={{ width: `${counter}%` }}
+      ></div>
+    </div>
+    <p className="loading-percentage">
+      {Math.round(counter)}% complete
+    </p>
+  </div>
+) : hotels.length === 0 ? (
+  <div className="hotels-empty">
+    <p>No hotels found for the selected criteria</p>
+  </div>
+) : (
+  <div className="hotels-results">
+    <HotelsList 
+      hotels={hotels} 
+      currentUser={currentUser} 
+      arrivalDate={arrivalDate} 
+      departureDate={departureDate} 
+    />
+  </div>
+)}
     </div>
   );
 };

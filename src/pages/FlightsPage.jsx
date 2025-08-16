@@ -8,6 +8,7 @@ const FlightsPage = () => {
   const currentUser = GetCurrentUser();
   const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [counter, setCounter] = useState(0);
   const [departureCity, setDepartureCity] = useState("");
   const [arrivalCity, setArrivalCity] = useState("");
   const [departureDate, setDepartureDate] = useState("");
@@ -15,8 +16,12 @@ const FlightsPage = () => {
 
   const fetchFlights = useCallback(async () => {
     if (!departureCity || !arrivalCity || !departureDate || !arrivalDate) return;
-    setLoading(true);
+    
     try {
+      setLoading(true);
+      setCounter(0);
+      const interval = setInterval(() => setCounter(prev => (prev < 100 ? prev + 0.5 : 100)), 50);
+
       const response = await axios.get(`${BASE_URL}/flight`, {
         params: {
           departure_city_name: departureCity,
@@ -24,6 +29,7 @@ const FlightsPage = () => {
           departure_date: departureDate,
           arrival_date: arrivalDate,
         },
+        timeout: 60000
       });
 
       const data = response.data?.data || {};
@@ -54,6 +60,8 @@ const FlightsPage = () => {
       });
 
       setFlights(combinedFlights);
+      clearInterval(interval);
+      setCounter(100);
     } catch (err) {
       console.error(err);
       setFlights([]);
@@ -104,15 +112,28 @@ const FlightsPage = () => {
         </button>
       </form>
 
-      {loading && (
-        <div className="flights-page__loading">
-          <p className="flights-page__loading-text">Loading flights...</p>
-        </div>
-      )}
-
-      <div className="flights-page__results">
-        <FlightsList flights={flights} currentUser={currentUser} />
-      </div>
+{loading ? (
+  <div className="loading-container">
+    <p className="loading-text">Searching flights...</p>
+    <div className="loading-bar-container">
+      <div 
+        className="loading-bar" 
+        style={{ width: `${counter}%` }}
+      ></div>
+    </div>
+    <p className="loading-percentage">
+      {Math.round(counter)}% complete
+    </p>
+  </div>
+) : flights.length === 0 ? (
+  <div className="flights-empty">
+    <p>No flights found for the selected criteria</p>
+  </div>
+) : (
+  <div className="flights-page__results">
+    <FlightsList flights={flights} currentUser={currentUser} />
+  </div>
+)}
     </div>
   );
 };

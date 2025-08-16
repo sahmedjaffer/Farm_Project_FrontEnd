@@ -93,34 +93,10 @@
 }
 
 /* Loading State */
-.flights-page__loading {
-  text-align: center;
-  padding: 2rem;
-  background-color: white;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  margin: 2rem 0;
-}
 
-.flights-page__loading-text {
-  font-size: 1.1rem;
-  color: var(--gray);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
 
-.flights-page__loading-text::after {
-  content: '';
-  display: inline-block;
-  width: 1rem;
-  height: 1rem;
-  border: 2px solid var(--primary);
-  border-radius: 50%;
-  border-top-color: transparent;
-  animation: spin 0.8s linear infinite;
-}
+
+
 
 /* Results Section */
 .flights-page__results {
@@ -1521,6 +1497,10 @@
   50% { opacity: 1; }
 }
 
+
+.loading-container,
+.flights-loading,
+.hotels-loading,
 .attractions-loading {
   animation: pulse 1.5s infinite ease-in-out;
 }
@@ -3239,4 +3219,160 @@ html, body, #root {
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Flights Loading Styles */
+/* Consolidated Loading Bar Styles with Pulse Animation */
+.loading-container {
+  text-align: center;
+  padding: 2rem;
+  background-color: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin: 2rem 0;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.loading-text {
+  font-size: 1.1rem;
+  color: var(--gray);
+  margin-bottom: 1rem;
+}
+
+.loading-bar-container {
+  width: 100%;
+  height: 8px;
+  background-color: var(--light-gray);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.loading-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: var(--radius);
+  transition: width 0.3s ease;
+}
+
+.loading-percentage {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 0.95;
+    box-shadow: var(--shadow);
+  }
+  50% { 
+    opacity: 1;
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.loading-text,
+.flights-loading-text,
+.hotels-loading-text,
+.attractions-loading-text {
+  font-size: 1.1rem;
+  color: var(--gray);
+  margin-bottom: 1rem;
+}
+
+.loading-bar-container,
+.flights-loading-bar-container, 
+.hotels-loading-bar-container,
+.attractions-loading-bar-container {
+  width: 100%;
+  height: 8px;
+  background-color: var(--light-gray);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.loading-bar,
+.flights-loading-bar,
+.hotels-loading-bar,
+.attractions-loading-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: var(--radius);
+  transition: width 0.3s ease;
+}
+
+.loading-percentage,
+.flights-loading-percentage,
+.hotels-loading-percentage,
+.attractions-loading-percentage {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 0.95;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  50% { 
+    opacity: 1;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+}
+
+
+
+/* Loading Animation Styles */
+.loading-container {
+  text-align: center;
+  padding: 2rem;
+  background-color: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin: 2rem 0;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.loading-text {
+  font-size: 1.1rem;
+  color: var(--gray);
+  margin-bottom: 1rem;
+}
+
+.loading-bar-container {
+  width: 100%;
+  height: 8px;
+  background-color: var(--light-gray);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.loading-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: var(--radius);
+  transition: width 0.3s ease;
+}
+
+.loading-percentage {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 0.95;
+    box-shadow: var(--shadow);
+  }
+  50% { 
+    opacity: 1;
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.loading-container {
+  animation: pulse 1.5s infinite ease-in-out !important;
 }
