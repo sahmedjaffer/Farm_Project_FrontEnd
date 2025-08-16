@@ -16,38 +16,41 @@ const Profile = ({ user }) => {
   }, []);
 
   return (
-    <div className="profileContainer">
+    <div className="profile-container">
       {user ? (
         profData ? (
           <>
-            <div className="profileData">
+            <div className="profile-data">
               <h1>{profData.first_name} {profData.last_name}</h1>
               <h3>{profData.email}</h3>
             </div>
-            <div className="profileAction">
+            <div className="profile-actions">
               <button
-                onClick={() => {
-                  navigate("/profile/update-profile");
-                }}
+                className="profile-action-btn"
+                onClick={() => navigate("/profile/update-profile")}
               >
-                Update Profile
+                <i className="fas fa-user-edit"></i> Update Profile
               </button>
               <button
-                onClick={() => {
-                  navigate("/profile/my-history");
-                }}
+                className="profile-action-btn"
+                onClick={() => navigate("/profile/my-history")}
               >
-                My History
+                <i className="fas fa-history"></i> My History
               </button>
             </div>
           </>
         ) : (
-          <p className="loading">Loading profile...</p>
+          <p className="profile-loading">Loading profile...</p>
         )
       ) : (
-        <div className="protected">
+        <div className="profile-protected">
           <h3>You must be signed in to do that!</h3>
-          <button onClick={() => navigate("/signin")}>Sign In</button>
+          <button 
+            className="profile-protected-btn"
+            onClick={() => navigate("/signin")}
+          >
+            Sign In
+          </button>
         </div>
       )}
     </div>

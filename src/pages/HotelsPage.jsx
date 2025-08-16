@@ -44,13 +44,33 @@ const HotelsPage = () => {
   };
 
   return (
-    <div className="page-container">
+    <div className="hotels-page">
       <h2>Hotels</h2>
-      <form onSubmit={handleSearch} className="search-form">
-        <input type="text" placeholder="City name" value={cityName} onChange={e => setCityName(e.target.value)} required />
-        <input type="date" value={arrivalDate} onChange={e => setArrivalDate(e.target.value)} required />
-        <input type="date" value={departureDate} onChange={e => setDepartureDate(e.target.value)} required />
-        <select value={sortBy} onChange={e => setSortBy(e.target.value)} required>
+      <form onSubmit={handleSearch} className="hotels-search-form">
+        <input 
+          type="text" 
+          placeholder="City name" 
+          value={cityName} 
+          onChange={e => setCityName(e.target.value)} 
+          required 
+        />
+        <input 
+          type="date" 
+          value={arrivalDate} 
+          onChange={e => setArrivalDate(e.target.value)} 
+          required 
+        />
+        <input 
+          type="date" 
+          value={departureDate} 
+          onChange={e => setDepartureDate(e.target.value)} 
+          required 
+        />
+        <select 
+          value={sortBy} 
+          onChange={e => setSortBy(e.target.value)} 
+          required
+        >
           <option value="" disabled>Select sort option</option>
           <option value="price">Price</option>
           <option value="popularity">Popularity</option>
@@ -59,14 +79,24 @@ const HotelsPage = () => {
         <button type="submit">Search</button>
       </form>
 
-      {loading ? <p>Loading...</p> : null}
-
-     <HotelsList 
-  hotels={hotels} 
-  currentUser={currentUser} 
-  arrivalDate={arrivalDate} 
-  departureDate={departureDate} 
-/>
+      {loading ? (
+        <div className="hotels-loading">
+          <p className="hotels-loading-text">Finding hotels...</p>
+        </div>
+      ) : hotels.length === 0 ? (
+        <div className="hotels-empty">
+          <p>No hotels found for the selected criteria</p>
+        </div>
+      ) : (
+        <div className="hotels-results">
+          <HotelsList 
+            hotels={hotels} 
+            currentUser={currentUser} 
+            arrivalDate={arrivalDate} 
+            departureDate={departureDate} 
+          />
+        </div>
+      )}
     </div>
   );
 };

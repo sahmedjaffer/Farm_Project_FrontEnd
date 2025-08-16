@@ -15,90 +15,108 @@ const Register = () => {
   };
 
   const [formValues, setFormValues] = useState(initialState);
-
-  const handleChange = (e) => {
-    setFormValues({ ...formValues, [e.target.id]: e.target.value });
-  };
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Optional: check if password matches confirmPassword
     if (formValues.password !== formValues.confirmPassword) {
-      alert("Passwords do not match!");
+      setError("Passwords do not match!");
       return;
     }
 
-    await RegisterUser({
-      first_name: formValues.first_name,
-      last_name: formValues.last_name,
-      email: formValues.email,
-      password: formValues.password,
-    });
+    try {
+      await RegisterUser({
+        first_name: formValues.first_name,
+        last_name: formValues.last_name,
+        email: formValues.email,
+        password: formValues.password,
+      });
+      setFormValues(initialState);
+      navigate("/signin");
+    } catch (err) {
+      setError(err.message || "Registration failed. Please try again.");
+    }
+  };
 
-    setFormValues(initialState);
-    navigate("/signin");
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormValues(prev => ({ ...prev, [id]: value }));
+    if (error) setError(""); // Clear error when user starts typing
   };
 
   return (
     <div className="register">
-      <label htmlFor="col" className="registerLable">Register</label>
-      <form onSubmit={handleSubmit} className="col" id="col">
+      <h1 className="registerLable">Register</h1>
+      {error && <div className="error-message">{error}</div>}
+      
+      <form onSubmit={handleSubmit} className="register-form">
         <div className="input-wrapper">
           <label htmlFor="first_name" className="titleFiled">First Name</label>
           <input
-            onChange={handleChange}
+            onChange={handleInputChange}
             id="first_name"
             type="text"
             placeholder="John"
             value={formValues.first_name}
             required
-            className="nameReg"
           />
         </div>
 
         <div className="input-wrapper">
           <label htmlFor="last_name" className="titleFiled">Last Name</label>
           <input
-            onChange={handleChange}
+            onChange={handleInputChange}
             id="last_name"
             type="text"
             placeholder="Doe"
             value={formValues.last_name}
             required
-            className="nameReg"
           />
         </div>
 
         <div className="input-wrapper">
           <label htmlFor="email" className="titleFiled">Email</label>
           <input
-            onChange={handleChange}
+            onChange={handleInputChange}
             id="email"
             type="email"
             placeholder="example@example.com"
             value={formValues.email}
             required
-            className="emailReg"
           />
         </div>
 
         <div className="input-wrapper">
           <label htmlFor="password" className="titleFiled">Password</label>
           <input
-            onChange={handleChange}
+            onChange={handleInputChange}
             type="password"
             id="password"
             value={formValues.password}
             required
-            className="passReg"
           />
+          {formValues.password && (
+            <div className="password-strength">
+              <div 
+                className="strength-bar"
+                style={{
+                  width: `${Math.min(formValues.password.length * 10, 100)}%`,
+                  backgroundColor: formValues.password.length > 8 ? 
+                    'var(--success)' : 
+                    formValues.password.length > 5 ? 
+                    'var(--warning)' : 
+                    'var(--danger)'
+                }}
+              ></div>
+            </div>
+          )}
         </div>
 
         <div className="input-wrapper">
           <label htmlFor="confirmPassword" className="titleFiled">Confirm Password</label>
           <input
-            onChange={handleChange}
+            onChange={handleInputChange}
             type="password"
             id="confirmPassword"
             value={formValues.confirmPassword}
@@ -123,8 +141,8 @@ const Register = () => {
       </form>
 
       <div className="linkLoginC">
-        <label htmlFor="linkReg" className="labsign">Already have an Account?</label>
-        <Link to="/signin" id="linkReg" className="linkReg">Sign In</Link>
+        <span className="labsign">Already have an account?</span>
+        <Link to="/signin" className="linkReg">Sign In</Link>
       </div>
     </div>
   );

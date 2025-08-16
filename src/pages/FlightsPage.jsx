@@ -63,19 +63,56 @@ const FlightsPage = () => {
   }, [departureCity, arrivalCity, departureDate, arrivalDate]);
 
   return (
-    <div className="page-container">
-      <h2>Flights</h2>
-      <form onSubmit={(e) => { e.preventDefault(); fetchFlights(); }}>
-        <input placeholder="Departure City" onChange={(e) => setDepartureCity(e.target.value)} required />
-        <input placeholder="Arrival City" onChange={(e) => setArrivalCity(e.target.value)} required />
-        <input type="date" onChange={(e) => setArrivalDate(e.target.value)} required />
-        <input type="date" onChange={(e) => setDepartureDate(e.target.value)} required />
-        <button type="submit">Search</button>
+    <div className="flights-page">
+      <div className="flights-page__header">
+        <h2 className="flights-page__title">Flights</h2>
+      </div>
+      
+      <form 
+        className="flights-search-form"
+        onSubmit={(e) => { e.preventDefault(); fetchFlights(); }}
+      >
+        <input 
+          className="flights-search-form__input"
+          placeholder="Departure City" 
+          onChange={(e) => setDepartureCity(e.target.value)} 
+          required 
+        />
+        <input 
+          className="flights-search-form__input"
+          placeholder="Arrival City" 
+          onChange={(e) => setArrivalCity(e.target.value)} 
+          required 
+        />
+        <input 
+          className="flights-search-form__input"
+          type="date" 
+          onChange={(e) => setArrivalDate(e.target.value)} 
+          required 
+        />
+        <input 
+          className="flights-search-form__input"
+          type="date" 
+          onChange={(e) => setDepartureDate(e.target.value)} 
+          required 
+        />
+        <button 
+          type="submit"
+          className="flights-search-form__submit-btn"
+        >
+          Search Flights
+        </button>
       </form>
 
-      {loading && <p>Loading...</p>}
+      {loading && (
+        <div className="flights-page__loading">
+          <p className="flights-page__loading-text">Loading flights...</p>
+        </div>
+      )}
 
-      <FlightsList flights={flights} currentUser={currentUser} />
+      <div className="flights-page__results">
+        <FlightsList flights={flights} currentUser={currentUser} />
+      </div>
     </div>
   );
 };

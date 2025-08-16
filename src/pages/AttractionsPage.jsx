@@ -50,9 +50,9 @@ const AttractionsPage = () => {
   };
 
   return (
-    <div className="page-container">
+    <div className="attractions-page">
       <h2>Attractions</h2>
-      <form onSubmit={handleSearch} className="search-form">
+      <form onSubmit={handleSearch} className="attractions-search-form">
         <input
           type="text"
           placeholder="City name"
@@ -76,15 +76,26 @@ const AttractionsPage = () => {
       </form>
 
       {loading ? (
-        <div className="loading-indicator">
-          <p className="loading-text">Searching for options...</p>
-          <div className="loading-bar-container">
-            <div className="loading-bar" style={{ width: `${counter}%` }}></div>
+        <div className="attractions-loading">
+          <p className="attractions-loading-text">Searching for options...</p>
+          <div className="attractions-loading-bar-container">
+            <div 
+              className="attractions-loading-bar" 
+              style={{ width: `${counter}%` }}
+            ></div>
           </div>
-          <p className="loading-percentage">{Math.round(counter)}% complete</p>
+          <p className="attractions-loading-percentage">
+            {Math.round(counter)}% complete
+          </p>
+        </div>
+      ) : attractions.length === 0 ? (
+        <div className="attractions-empty">
+          <p>No attractions found for the selected criteria</p>
         </div>
       ) : (
-        <AttractionsList attractions={attractions} currentUser={currentUser} />
+        <div className="attractions-results">
+          <AttractionsList attractions={attractions} currentUser={currentUser} />
+        </div>
       )}
     </div>
   );

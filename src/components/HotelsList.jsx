@@ -7,7 +7,7 @@ const HotelsList = ({ hotels, currentUser, arrivalDate, departureDate }) => {
   const [selectedHotel, setSelectedHotel] = useState(null);
   const [apiMessage, setApiMessage] = useState("");
 
-const handleSave = async (hotel) => {
+  const handleSave = async (hotel) => {
   if (!currentUser) {
     alert("You must be logged in to save hotels!");
     return;
@@ -15,15 +15,13 @@ const handleSave = async (hotel) => {
 
   const hotelData = {
     hotel_name: hotel.hotel_name,
+    hotel_photo_url: hotel.hotel_photo_url,
     hotel_review_score_word: hotel.review_scoreWord,
     hotel_review_score: parseFloat(hotel.review_score),
     hotel_gross_price: hotel.local_price.toString(),
     hotel_currency: hotel.currency || "BHD",
     hotel_check_in: arrivalDate,  // Should be in YYYY-MM-DD format
     hotel_check_out: departureDate,  // Should be in YYYY-MM-DD format
-    hotel_score: typeof hotel.score === 'object' 
-      ? hotel.score?.value || hotel.review_score
-      : hotel.review_score
   };
 
   try {
@@ -51,13 +49,14 @@ const handleSave = async (hotel) => {
   }
 };
 
-
-  if (!hotels || hotels.length === 0) return <p>No hotels found for the selected dates.</p>;
+  if (!hotels || hotels.length === 0) {
+    return <p className="hotels-empty-state">No hotels found for the selected dates.</p>;
+  }
 
   return (
     <div className="hotels-container">
       {apiMessage && (
-        <div className="api-popup">
+        <div className="hotels-notification">
           <p>{apiMessage}</p>
           <button onClick={() => setApiMessage("")}>Close</button>
         </div>
@@ -69,7 +68,9 @@ const handleSave = async (hotel) => {
           <div className="hotel-card-content">
             <h3>{hotel.hotel_name}</h3>
             <p>{hotel.hotel_address}</p>
-            <p>Rating: {hotel.review_scoreWord} ({hotel.review_score})</p>
+            <div className="hotel-rating">
+              {hotel.review_scoreWord} ({hotel.review_score})
+            </div>
             <p className="price">BHD {hotel.local_price}</p>
             <p>
               Check-in: {hotel.check_in.from} - {hotel.check_in.until} | 
@@ -77,7 +78,7 @@ const handleSave = async (hotel) => {
             </p>
 
             <button
-              className="select-btn"
+              className="hotel-select-btn"
               onClick={() =>
                 setSelectedHotel(
                   selectedHotel?.hotel_id === hotel.hotel_id ? null : hotel
@@ -88,12 +89,12 @@ const handleSave = async (hotel) => {
             </button>
 
             {selectedHotel?.hotel_id === hotel.hotel_id && (
-              <div className="booking-info">
+              <div className="hotel-booking-info">
                 <p>Arrival: {arrivalDate}</p>
                 <p>Departure: {departureDate}</p>
 
                 <button
-                  className="book-btn"
+                  className="hotel-book-btn"
                   onClick={() => handleSave(hotel)}
                   disabled={!currentUser}
                 >

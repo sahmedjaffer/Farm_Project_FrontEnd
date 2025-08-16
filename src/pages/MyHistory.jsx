@@ -8,8 +8,14 @@ const MyHistory = () => {
   const [attractions, setAttractions] = useState([]);
   const [hotels, setHotels] = useState([]);
   const [flights, setFlights] = useState([]);
+
+  const [attrError, setAttrError] = useState(null);
+  const [hotelError, setHotelError] = useState(null);
+  const [flightError, setFlightError] = useState(null);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
   const hasFetched = useRef(false);
 
   useEffect(() => {
@@ -17,39 +23,54 @@ const MyHistory = () => {
     hasFetched.current = true;
 
     const fetchHistory = async () => {
-      try {
-        const headers = AuthHeader();
-        if (!headers.Authorization) {
-          throw new Error("You must be logged in to view history");
-        }
-
-        setLoading(true);
-        
-        const [attrRes, hotelRes, flightRes] = await Promise.all([
-          fetch(`${BASE_URL}/user/attractions`, { headers }),
-          fetch(`${BASE_URL}/user/hotels`, { headers }),
-          fetch(`${BASE_URL}/user/flights`, { headers }),
-        ]);
-
-        if (!attrRes.ok || !hotelRes.ok || !flightRes.ok) {
-          throw new Error("Failed to fetch some history data");
-        }
-
-        const [attrData, hotelData, flightData] = await Promise.all([
-          attrRes.json(),
-          hotelRes.json(),
-          flightRes.json(),
-        ]);
-
-        setAttractions(attrData.data || []);
-        setHotels(hotelData.data || []);
-        setFlights(flightData.data || []);
-      } catch (err) {
-        console.error(err);
-        setError(err.message || "Failed to fetch history");
-      } finally {
+      const headers = AuthHeader();
+      if (!headers.Authorization) {
+        setError("You must be logged in to view history");
         setLoading(false);
+        return;
       }
+
+      setLoading(true);
+
+      const fetchData = async (url) => {
+        try {
+          const res = await fetch(url, { headers });
+          const json = await res.json();
+          if (!res.ok) {
+            console.warn(`API error: ${json.detail || json.message}`);
+            return { data: [], error: json.detail || json.message };
+          }
+          return { data: json.data || [], error: null };
+        } catch (err) {
+          console.error(err);
+          return { data: [], error: err.message || "Unknown error" };
+        }
+      };
+
+      const [attrResult, hotelResult, flightResult] = await Promise.all([
+        fetchData(`${BASE_URL}/user/attractions`),
+        fetchData(`${BASE_URL}/user/hotels`),
+        fetchData(`${BASE_URL}/user/flights`),
+      ]);
+
+      setAttractions(attrResult.data);
+      setHotels(hotelResult.data);
+      setFlights(flightResult.data);
+
+      setAttrError(attrResult.error);
+      setHotelError(hotelResult.error);
+      setFlightError(flightResult.error);
+
+      // Global error only if all APIs failed
+      if (attrResult.error && hotelResult.error && flightResult.error) {
+        setError(
+          `Failed to load history: ${attrResult.error}, ${hotelResult.error}, ${flightResult.error}`
+        );
+      } else {
+        setError(null);
+      }
+
+      setLoading(false);
     };
 
     fetchHistory();
@@ -57,21 +78,21 @@ const MyHistory = () => {
 
   if (loading) {
     return (
-      <div className="loading-container">
-        <div className="loading-spinner"></div>
-        <p>Loading your travel history...</p>
+      <div className="history-loading">
+        <div className="history-loading-spinner"></div>
+        <p className="history-loading-text">Loading your travel history...</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="error-container">
-        <div className="error-icon">⚠️</div>
+      <div className="history-error">
+        <div className="history-error-icon">⚠️</div>
         <h3>Error Loading History</h3>
         <p>{error}</p>
         <button 
-          className="retry-btn"
+          className="history-retry-btn"
           onClick={() => window.location.reload()}
         >
           Try Again
@@ -80,14 +101,15 @@ const MyHistory = () => {
     );
   }
 
-  const hasNoHistory = attractions.length === 0 && 
-                      hotels.length === 0 && 
-                      flights.length === 0;
+  const hasNoHistory = 
+    attractions.length === 0 && 
+    hotels.length === 0 && 
+    flights.length === 0;
 
   if (hasNoHistory) {
     return (
-      <div className="empty-history">
-        <div className="empty-icon">✈️</div>
+      <div className="history-empty">
+        <div className="history-empty-icon">✈️</div>
         <h3>No Travel History Found</h3>
         <p>Your booked attractions, hotels, and flights will appear here</p>
       </div>
@@ -98,21 +120,35 @@ const MyHistory = () => {
     <div className="history-page">
       <h1 className="history-title">Your Travel History</h1>
       
-      <HistoryList 
-        title="Attractions" 
-        items={attractions} 
-        type="attraction" 
-      />
-      <HistoryList 
-        title="Hotels" 
-        items={hotels} 
-        type="hotel" 
-      />
-      <HistoryList 
-        title="Flights" 
-        items={flights} 
-        type="flight" 
-      />
+      <div className="history-section">
+        <HistoryList
+          title="Attractions"
+          items={attractions}
+          setItems={setAttractions}
+          type="attraction"
+          errorMessage={attrError}
+        />
+      </div>
+      
+      <div className="history-section">
+        <HistoryList
+          title="Hotels"
+          items={hotels}
+          setItems={setHotels}
+          type="hotel"
+          errorMessage={hotelError}
+        />
+      </div>
+      
+      <div className="history-section">
+        <HistoryList
+          title="Flights"
+          items={flights}
+          setItems={setFlights}
+          type="flight"
+          errorMessage={flightError}
+        />
+      </div>
     </div>
   );
 };

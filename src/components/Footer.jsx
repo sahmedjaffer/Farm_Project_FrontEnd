@@ -5,35 +5,31 @@ const Footer = () => {
     <footer className="site-footer">
       <div className="footer-content">
         <div className="footer-brand">
-          <h2>✈️ Viajero</h2>
-          <p>🌎 Viajes con corazón, recuerdos para siempre</p>
+          <img 
+            src="/images/logo.png" 
+            alt="Travel App Logo" 
+            className="footer-logo giant-logo"  // Added giant-logo class
+          />
+          <p>Travel made easy and comfortable</p>
         </div>
-
         <div className="footer-links">
-          <a href="/about">About Us</a>
-          <a href="/contact">Contact</a>
-          <a href="/terms">Terms of Service</a>
-          <a href="/privacy">Privacy Policy</a>
+          <h3>Quick Links</h3>
+          <a href="#">Home</a>
+          <a href="#">Flights</a>
+          <a href="#">Hotels</a>
+          <a href="#">Attractions</a>
         </div>
-
-        <div className="footer-socials">
-          <p>Follow us:</p>
-          <a href="#">
-            <i className="fab fa-twitter"></i> Twitter
-          </a>
-          <a href="#">
-            <i className="fab fa-instagram"></i> Instagram
-          </a>
-          <a href="#">
-            <i className="fab fa-github"></i> GitHub
-          </a>
+        <div className="footer-social">
+          <h3>Follow Us</h3>
+          <div className="social-links">
+            <a href="#"><i className="fab fa-facebook"></i></a>
+            <a href="#"><i className="fab fa-twitter"></i></a>
+            <a href="#"><i className="fab fa-instagram"></i></a>
+          </div>
         </div>
       </div>
-
       <div className="footer-bottom">
-        <p>
-          © {new Date().getFullYear()} Construido con sueños ✈️ y ❤️
-        </p>
+        <p>&copy; {new Date().getFullYear()} Your Travel App. All rights reserved.</p>
       </div>
     </footer>
   );

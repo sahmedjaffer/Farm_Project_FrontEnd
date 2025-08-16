@@ -28,7 +28,6 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate password match
     if (formValues.password !== formValues.confirmPassword) {
       setErrorMessage("Passwords do not match.");
       return;
@@ -42,6 +41,7 @@ const Register = () => {
         password: formValues.password,
       });
       setFormValues(initialState);
+      setFormValues(initialState);
       navigate("/signin");
     } catch (error) {
       setErrorMessage(error.response?.data?.message || "Registration failed.");
@@ -52,33 +52,33 @@ const Register = () => {
   return (
     <div className="register">
       <h2>Register</h2>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      {errorMessage && <p className="register-error">{errorMessage}</p>}
       <form onSubmit={handleSubmit} className="register-form">
-        <div className="input-wrapper">
+        <div className="register-input-wrapper">
           <label htmlFor="first_name">First Name</label>
           <input
             id="first_name"
             type="text"
-            placeholder="John"
+            placeholder="Your First Name"
             value={formValues.first_name}
             onChange={handleChange}
             required
           />
         </div>
 
-        <div className="input-wrapper">
+        <div className="register-input-wrapper">
           <label htmlFor="last_name">Last Name</label>
           <input
             id="last_name"
             type="text"
-            placeholder="Doe"
+            placeholder="Your Last Name"
             value={formValues.last_name}
             onChange={handleChange}
             required
           />
         </div>
 
-        <div className="input-wrapper">
+        <div className="register-input-wrapper">
           <label htmlFor="email">Email</label>
           <input
             id="email"
@@ -90,7 +90,7 @@ const Register = () => {
           />
         </div>
 
-        <div className="input-wrapper">
+        <div className="register-input-wrapper">
           <label htmlFor="password">Password</label>
           <input
             id="password"
@@ -101,7 +101,7 @@ const Register = () => {
           />
         </div>
 
-        <div className="input-wrapper">
+        <div className="register-input-wrapper">
           <label htmlFor="confirmPassword">Confirm Password</label>
           <input
             id="confirmPassword"
@@ -112,22 +112,23 @@ const Register = () => {
           />
         </div>
 
-<div className="RegbtnC">
-  <button
-    className="Regbtn"
-    disabled={
-      !formValues.name ||
-      !formValues.email ||
-      !formValues.password ||
-      formValues.password !== formValues.confirmPassword
-    }
-  >
-    Register
-  </button>
-</div>
+        <div className="register-btn-container">
+          <button
+            className="register-btn"
+            disabled={
+              !formValues.first_name ||
+              !formValues.last_name ||
+              !formValues.email ||
+              !formValues.password ||
+              formValues.password !== formValues.confirmPassword
+            }
+          >
+            Register
+          </button>
+        </div>
       </form>
 
-      <div className="linkLoginC">
+      <div className="register-login-link">
         <p>
           Already have an account?{" "}
           <Link to="/signin">Sign In</Link>
