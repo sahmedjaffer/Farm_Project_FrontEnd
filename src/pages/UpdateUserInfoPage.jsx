@@ -95,7 +95,7 @@ const UserUpdate = ({ user }) => {
   const handleClosePopup = () => setPopup(null);
 
   return (
-    <div className="signin">
+    <div className="user-update">
       {user ? (
         <>
           <label className="signInLable">Update User Info</label>
